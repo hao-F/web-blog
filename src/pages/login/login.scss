@@ -1,0 +1,13 @@
+.loginContent {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  
+  .loginBox {
+    width: 980px;
+    height: 500px;
+    padding: 30px 60px;
+    margin: auto;
+    box-shadow: 0px 0px 5px #ccc;
+  }
+}
