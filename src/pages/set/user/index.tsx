@@ -1,24 +1,48 @@
-import React, { useState } from 'react';
-import { Table, Radio, Button } from 'antd';
+import React, { /*useState*/ } from 'react';
+import { Table, /*Radio,*/ Button } from 'antd';
 
 const columns = [
   {
-    title: 'Name',
+    title: '姓名',
     dataIndex: 'name',
     render: (text: string) =>  <Button type="link" onClick={() => activateLasers(text)}>{text}</Button>
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
+    title: '用户名',
+    dataIndex: 'username',
   },
   {
-    title: 'Address',
+    title: '地址',
     dataIndex: 'address',
   },
+  {
+    title: '电话',
+    dataIndex: 'tele',
+  },
+  {
+    title: '操作',
+    key: 'action',
+    render: (row: object) => {
+      return (
+        <div>
+          <Button type="link" onClick={() => onEditor(row)}>编辑</Button>
+          <Button type="link" danger onClick={() => onDelete(row)}>删除</Button>
+        </div>
+      )
+    }
+  }
 ];
 
-function activateLasers(t: string) {
+const activateLasers = (t: string) => {
   console.log(t)
+}
+
+const onEditor = (row:object) => {
+  console.log(row);
+}
+
+const onDelete = (row: object) => {
+  console.log(row);
 }
 
 interface DataType {
@@ -26,6 +50,7 @@ interface DataType {
   name: string;
   age: number;
   address: string;
+  tele: string,
 }
 
 const data: DataType[] = [
@@ -34,56 +59,44 @@ const data: DataType[] = [
     name: 'John Brown22',
     age: 32,
     address: 'New York No. 1 Lake Park',
+    tele: '120',
   },
   {
     key: '2',
     name: 'Jim Green',
     age: 42,
     address: 'London No. 1 Lake Park',
+    tele: '110',
   },
   {
     key: '3',
     name: 'Joe Black',
     age: 32,
     address: 'Sidney No. 1 Lake Park',
+    tele: '119',
   },
   {
     key: '4',
     name: 'Disabled User',
     age: 99,
     address: 'Sidney No. 1 Lake Park',
+    tele: '114',
   },
 ];
 
-// rowSelection object indicates the need for row selection
 const rowSelection = {
   onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   },
-  getCheckboxProps: (record: DataType) => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name,
-  }),
 };
 
-const Demo = () => {
-  const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
+const UserTable = () => {
 
   return (
     <div>
-      <Radio.Group
-        onChange={({ target: { value } }) => {
-          setSelectionType(value);
-        }}
-        value={selectionType}
-      >
-        <Radio value="checkbox">Checkbox</Radio>
-        <Radio value="radio">radio</Radio>
-      </Radio.Group>
-
       <Table
         rowSelection={{
-          type: selectionType,
+          type: 'checkbox',
           ...rowSelection,
         }}
         columns={columns}
@@ -93,4 +106,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default UserTable;

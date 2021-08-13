@@ -8,7 +8,7 @@ class Login extends Component<any> {
 
   onFinish(values: any) {
     console.log(values)
-    this.props.history.push("/index");
+    this.props.history.push("/home");
   }
 
   render() {
